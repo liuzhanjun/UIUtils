@@ -41,11 +41,11 @@ public class RecyclerActivity extends AppCompatActivity {
         recycler2.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
-        BaseGridDecoration griditem = new BaseGridDecoration(this, 2);
+        BaseGridDecoration griditem = new BaseGridDecoration(this,5);
         griditem.setOratation(LinearLayoutManager.VERTICAL);
         griditem.setmDivider(R.drawable.itme_divider);
         recycler3.addItemDecoration(griditem);
-        recycler3.setLayoutManager(new GridLayoutManager(this, 2, LinearLayoutManager.VERTICAL, false));
+        recycler3.setLayoutManager(new GridLayoutManager(this, 5, LinearLayoutManager.VERTICAL, false));
     }
 
     public void Verticalcovert(View view) {
@@ -88,17 +88,18 @@ public class RecyclerActivity extends AppCompatActivity {
         datas.add("xx2");
         datas.add("xxbd");
         datas.add("xxbd");
-        datas.add("r");
+        datas.add("rgege");
         datas.add("77g");
         datas.add("s3");
         datas.add("xxbd");
+        datas.add("fx");
         datas.add("fx");
         datas.add("fx");
         datas.add("xxbd");
         datas.add("xxbd");
         datas.add("xcccxbd");
         datas.add("xxbd");
-        datas.add("xxeqrbd");
+        datas.add("xxu");
         datas.add("x345xbd");
         datas.add("r");
         datas.add("xxbd");
@@ -127,7 +128,7 @@ public class RecyclerActivity extends AppCompatActivity {
         datas.add("xxeqrbd");
         datas.add("536");
         datas.add("x345xbd");
-        datas.add("24b");
+        datas.add("24bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
         return datas;
     }
 }
