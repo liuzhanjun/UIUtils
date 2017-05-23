@@ -1,6 +1,7 @@
 package liu.zhan.jun.highuilist.uiActivity;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -40,11 +41,11 @@ public class RecyclerActivity extends AppCompatActivity {
         recycler2.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
-        BaseGridDecoration griditem = new BaseGridDecoration(this, 6);
+        BaseGridDecoration griditem = new BaseGridDecoration(this, 2);
         griditem.setOratation(LinearLayoutManager.VERTICAL);
         griditem.setmDivider(R.drawable.itme_divider);
         recycler3.addItemDecoration(griditem);
-        recycler3.setLayoutManager(new GridLayoutManager(this, 6, LinearLayoutManager.VERTICAL, false));
+        recycler3.setLayoutManager(new GridLayoutManager(this, 2, LinearLayoutManager.VERTICAL, false));
     }
 
     public void Verticalcovert(View view) {

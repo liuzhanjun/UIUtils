@@ -79,17 +79,22 @@ public class BaseGridDecoration extends RecyclerView.ItemDecoration {
      */
     private void setHorizontalOffsets(Rect outRect, int itemPosition, int interval) {
 
-        if (itemPosition % spanCount == 0) {
-            if (itemPosition == 0) {
-                outRect.set(interval, interval, interval, interval);
-            } else {
-                outRect.set(0, interval, interval, interval);
-            }
+        if (itemPosition == 0) {
+            //第一个的上下左右都有
+            outRect.set(interval, interval, interval, interval);
         } else {
-            if (itemPosition > spanCount) {
-                outRect.set(0, 0, interval, interval);
+            if (itemPosition % spanCount == 0) {
+                //这是第一行
+                //只有上右边下边
+                outRect.set(0, interval, interval, interval);
             } else {
-                outRect.set(interval, 0, interval, interval);
+                if (itemPosition < spanCount) {
+                    //第一列 左右下
+                    outRect.set(interval, 0, interval, interval);
+                } else {
+                    //只有右和下
+                    outRect.set(0, 0, interval, interval);
+                }
             }
         }
     }
@@ -111,6 +116,7 @@ public class BaseGridDecoration extends RecyclerView.ItemDecoration {
                 outRect.set(interval, 0, interval, interval);
             } else {
                 if (itemPosition < spanCount) {
+                    //第一行
                     outRect.set(0, interval, interval, interval);
                 } else {
                     //只有右和下
@@ -119,30 +125,17 @@ public class BaseGridDecoration extends RecyclerView.ItemDecoration {
             }
         }
 
-//        if (itemPosition % spanCount == 0) {
-//            if (itemPosition == 0) {
-//                outRect.set(w, h, w, h);
-//            } else {
-//                outRect.set(w, 0, w, h);
-//            }
-//        } else {
-//            if (itemPosition > spanCount) {
-//                outRect.set(0, 0, w, h);
-//            } else {
-//                outRect.set(0, h, w, h);
-//            }
-//        }
     }
 
 
     @Override
     public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
 
-//        if (oratation == GridLayoutManager.VERTICAL) {
-        DrawVertical(c, parent, state);
-//        }else if(oratation == GridLayoutManager.HORIZONTAL){
-//            DrawHorizontal(c, parent,state);
-//        }
+        if (oratation == GridLayoutManager.VERTICAL) {
+            DrawVertical(c, parent, state);
+        } else if (oratation == GridLayoutManager.HORIZONTAL) {
+            DrawHorizontal(c, parent, state);
+        }
 
 
         super.onDraw(c, parent, state);
@@ -156,7 +149,24 @@ public class BaseGridDecoration extends RecyclerView.ItemDecoration {
      * @param state
      */
     private void DrawHorizontal(Canvas c, RecyclerView parent, RecyclerView.State state) {
+        //画整个的左边
+        drawStartLeft(parent, c);
+        //画整个的上边
+        drawStartTop(parent, c);
+        //画元素的左边
+//        drawLeft(parent, c);
+    }
 
+    private void drawLeft(RecyclerView parent, Canvas c) {
+        //
+
+        for (int i = 1; i < parent.getChildCount(); i++) {
+            View view = parent.getChildAt(i + spanCount);
+            mDivider.setBounds(view.getLeft() - interval, view.getTop(), view.getLeft() + interval, view.getBottom());
+            mDivider.draw(c);
+
+
+        }
     }
 
     /**
@@ -203,9 +213,9 @@ public class BaseGridDecoration extends RecyclerView.ItemDecoration {
             if (i % spanCount == 0) {
                 //如果最后一个刚好是第一列的最后一个
                 if (i == parent.getChildCount() - 1) {
-                    int end=i-(spanCount-1);
+                    int end = i - (spanCount - 1);
                     View v = parent.getChildAt(i);
-                    mDivider2.setBounds(v.getLeft(),v.getBottom(),parent.getChildAt(end).getLeft()-interval,v.getBottom()+interval);
+                    mDivider2.setBounds(v.getLeft(), v.getBottom(), parent.getChildAt(end).getLeft() - interval, v.getBottom() + interval);
                     mDivider2.draw(c);
                 }
 
@@ -249,10 +259,10 @@ public class BaseGridDecoration extends RecyclerView.ItemDecoration {
                 //如果最后一个刚好是第一列的最后一个
                 if (i == parent.getChildCount() - 1) {
 
-                    int end=i-(spanCount-1);
-                    Log.i(TAG, "drawRight: i="+i+"====end="+end);
+                    int end = i - (spanCount - 1);
+                    Log.i(TAG, "drawRight: i=" + i + "====end=" + end);
                     View v = parent.getChildAt(end);
-                    mDivider2.setBounds(v.getLeft()-interval,v.getBottom()+interval,v.getLeft(),view.getBottom()+interval);
+                    mDivider2.setBounds(v.getLeft() - interval, v.getBottom() + interval, v.getLeft(), view.getBottom() + interval);
                     mDivider2.draw(c);
                 }
                 rightEndIndex = i;
@@ -290,13 +300,22 @@ public class BaseGridDecoration extends RecyclerView.ItemDecoration {
      * @param c
      */
     private void drawStartTop(RecyclerView parent, Canvas c) {
-        int left = parent.getPaddingLeft() + interval;
-        int right = parent.getWidth() - parent.getPaddingRight() + interval;
-        int top = parent.getPaddingTop();//+ Math.round(ViewCompat.getTranslationY(view));
-        int bottom = interval;// + params.topMargin;
-        //上
-        mDivider.setBounds(left, top, right, bottom);
-        mDivider.draw(c);
+        int w=parent.getChildAt(1).getLeft()+interval-parent.getChildAt(0).getLeft();
+        for (int i = 0; i < parent.getChildCount(); i++) {
+            //第一行画上面
+            if (i < spanCount) {
+                View v=parent.getChildAt(i);
+                int left = v.getLeft()-interval;
+
+                int right=v.getLeft()+w;
+                int top=v.getTop()-interval;
+                int bottom=v.getTop();
+                mDivider.setBounds(left, top, right, bottom);
+                mDivider.draw(c);
+            }
+        }
+
+
 
     }
 
@@ -307,11 +326,16 @@ public class BaseGridDecoration extends RecyclerView.ItemDecoration {
      * @param c
      */
     private void drawStartLeft(RecyclerView parent, Canvas c) {
-        int left = parent.getPaddingLeft();
-        int right = interval;// + params.leftMargin;
-        int top = parent.getPaddingTop();
-        int bottom = parent.getBottom();
-        mDivider.setBounds(left, top, right, bottom);
-        mDivider.draw(c);
+
+        for (int i = 0; i < parent.getChildCount(); i++) {
+            //左边的
+            View view=parent.getChildAt(i);
+            if (i%spanCount==0){
+               mDivider.setBounds(view.getLeft()-interval,view.getTop(),view.getLeft(),view.getBottom()+interval);
+                mDivider.draw(c);
+            }
+
+        }
+
     }
 }
