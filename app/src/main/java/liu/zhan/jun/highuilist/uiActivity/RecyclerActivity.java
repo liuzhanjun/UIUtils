@@ -37,14 +37,14 @@ public class RecyclerActivity extends AppCompatActivity {
         init();
         recycler.addItemDecoration(Verticaldecoration);
         recycler2.addItemDecoration(Horizontaldecoration);
-        recycler2.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
-        recycler.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        recycler2.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
-        BaseGridDecoration griditem = new BaseGridDecoration(this,3);
+        BaseGridDecoration griditem = new BaseGridDecoration(this, 6);
         griditem.setOratation(LinearLayoutManager.VERTICAL);
         griditem.setmDivider(R.drawable.itme_divider);
         recycler3.addItemDecoration(griditem);
-        recycler3.setLayoutManager(new GridLayoutManager(this,3));
+        recycler3.setLayoutManager(new GridLayoutManager(this, 6, LinearLayoutManager.VERTICAL, false));
     }
 
     public void Verticalcovert(View view) {
@@ -60,7 +60,7 @@ public class RecyclerActivity extends AppCompatActivity {
         recycler3.setVisibility(View.GONE);
     }
 
-    public void Verticalwg(View view){
+    public void Verticalwg(View view) {
         recycler2.setVisibility(View.GONE);
         recycler.setVisibility(View.GONE);
         recycler3.setVisibility(View.VISIBLE);
@@ -90,12 +90,39 @@ public class RecyclerActivity extends AppCompatActivity {
         datas.add("r");
         datas.add("77g");
         datas.add("s3");
-        datas.add("dc");
         datas.add("xxbd");
         datas.add("fx");
+        datas.add("fx");
+        datas.add("xxbd");
         datas.add("xxbd");
         datas.add("xcccxbd");
         datas.add("xxbd");
+        datas.add("xxeqrbd");
+        datas.add("x345xbd");
+        datas.add("r");
+        datas.add("xxbd");
+        datas.add("xxbd");
+        datas.add("fx");
+        datas.add("xxbd");
+        datas.add("x345xbd");
+        datas.add("r");
+        datas.add("xxbd");
+        datas.add("xxbd");
+        datas.add("fx");
+        datas.add("xxbd");
+        datas.add("xxbd");
+        datas.add("xxbd");
+        datas.add("xxbd");
+        datas.add("xxbd");
+        datas.add("xxbd");
+        datas.add("xxeqrbd");
+        datas.add("xxeqrbd");
+        datas.add("536");
+        datas.add("xxbd");
+        datas.add("xxbd");
+        datas.add("fx");
+        datas.add("xxbd");
+        datas.add("xxeqrbd");
         datas.add("xxeqrbd");
         datas.add("536");
         datas.add("x345xbd");
