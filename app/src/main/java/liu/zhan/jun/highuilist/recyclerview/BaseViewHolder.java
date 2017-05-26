@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 
 /**
  * Created by 刘展俊 on 2016/6/7.
@@ -23,6 +24,8 @@ public  class BaseViewHolder extends RecyclerView.ViewHolder implements /*View.O
         super(itemView);
         this.onRecyclerItemClick=onRecyclerItemClick;
 //        itemView.setOnClickListener(this);
+        //这里的itemView设置touch的话，如果是竖直方向排列的item，宽度是wrap的话可能会导致itemVIew的宽度
+        //不一样，所以这样做可能会有问题
         itemView.setOnTouchListener(this);
         gestureDetector=new GestureDetector(mContext,this);
     }
@@ -49,6 +52,7 @@ public  class BaseViewHolder extends RecyclerView.ViewHolder implements /*View.O
         gestureDetector.onTouchEvent(event);
         return true;
     }
+
 
     @Override
     public boolean onDown(MotionEvent e) {

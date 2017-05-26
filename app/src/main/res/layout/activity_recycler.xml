@@ -32,6 +32,12 @@
             android:onClick="Verticalwg"
             android:text="竖直方向网格"/>
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="addHead"
+            android:text="加头部"/>
+
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler"
@@ -56,6 +62,15 @@
             android:visibility="gone">
 
         </android.support.v7.widget.RecyclerView>
+
+        <liu.zhan.jun.highuilist.recyclerview.WrapRecyclerView
+            android:id="@+id/recyclerhead"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:visibility="gone">
+
+        </liu.zhan.jun.highuilist.recyclerview.WrapRecyclerView>
 
 
     </LinearLayout>
