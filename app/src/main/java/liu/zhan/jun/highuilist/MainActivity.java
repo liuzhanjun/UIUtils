@@ -17,6 +17,8 @@ public class MainActivity extends BaseActivity<ListViewIn,ListItemClickPresent<L
     private RecyclerView uILists;
     private String TAG="LOGI";
     private ListItemClickPresent presentIn;
+    private BottomMenuDialog dialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +33,20 @@ public class MainActivity extends BaseActivity<ListViewIn,ListItemClickPresent<L
 //        decoration.setmDivider(R.drawable.itme_divider);
         uILists.addItemDecoration(decoration);
         uILists.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+
+        dialog = new BottomMenuDialog.BottomMenuBuilder()
+                .addItem("拍照", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Log.i(TAG, "onClick: 拍照");
+                    }
+                })
+                .addItem("从相册中选择", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Log.i(TAG, "onClick: 从相册中选择");
+                    }
+                }).build();
     }
 
     @Override
@@ -52,18 +68,6 @@ public class MainActivity extends BaseActivity<ListViewIn,ListItemClickPresent<L
 
     @Override
     public void alterDialog() {
-        new BottomMenuDialog.BottomMenuBuilder()
-                .addItem("拍照", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Log.i(TAG, "onClick: 拍照");
-                    }
-                })
-                .addItem("从相册中选择", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Log.i(TAG, "onClick: 从相册中选择");
-                    }
-                }).build().show(getSupportFragmentManager());
+        dialog.show(getSupportFragmentManager());
     }
 }
