@@ -4,10 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.View;
 
 import liu.zhan.jun.highuilist.presenter.ListItemClickPresent;
 import liu.zhan.jun.highuilist.recyclerview.BaseLinearDecoration;
 import liu.zhan.jun.highuilist.viewIn.ListViewIn;
+import liu.zhan.jun.highuilist.widget.BottomMenuDialog;
 
 public class MainActivity extends BaseActivity<ListViewIn,ListItemClickPresent<ListViewIn>>  implements ListViewIn{
 
@@ -45,5 +48,22 @@ public class MainActivity extends BaseActivity<ListViewIn,ListItemClickPresent<L
     public void jumpToActivity(Class<?> zclass) {
         Intent intent=new Intent(this,zclass);
         startActivity(intent);
+    }
+
+    @Override
+    public void alterDialog() {
+        new BottomMenuDialog.BottomMenuBuilder()
+                .addItem("拍照", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Log.i(TAG, "onClick: 拍照");
+                    }
+                })
+                .addItem("从相册中选择", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Log.i(TAG, "onClick: 从相册中选择");
+                    }
+                }).build().show(getSupportFragmentManager());
     }
 }

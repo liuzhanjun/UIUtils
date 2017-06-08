@@ -23,6 +23,7 @@ public class ListModleIm implements ListModelIn {
         data.add("v4包下的RoundeBitmapDrawFactory,将图片设置圆角");
         data.add("LinearlayoutCompat线性布局给子元素加间隔线");
         data.add("recyclerView");
+        data.add("BottomMenudialog");
         data.add("NavigationView");
         data.add("SnackBar");
         data.add("TextInputLayotu");

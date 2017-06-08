@@ -1,6 +1,7 @@
 package liu.zhan.jun.highuilist.presenter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 
 import liu.zhan.jun.highuilist.modelim.ListModleIm;
@@ -11,23 +12,25 @@ import liu.zhan.jun.highuilist.uiActivity.LinearLayoutCompatActivity;
 import liu.zhan.jun.highuilist.uiActivity.RecyclerActivity;
 import liu.zhan.jun.highuilist.uiActivity.ToolBarActivity;
 import liu.zhan.jun.highuilist.viewIn.ListViewIn;
+import liu.zhan.jun.highuilist.widget.BottomMenuDialog;
 
 /**
  * Created by 刘展俊 on 2017/5/7.
  */
 
-public class ListItemClickPresent<T> extends BasePresenter<T>{
-        //持有m,和view
-        private ListModelIn listModel;
+public class ListItemClickPresent<T> extends BasePresenter<T> {
+    public static final String TAG = "LOGI";
+    //持有m,和view
+    private ListModelIn listModel;
 
 
-    public BaseRecyclerAdapter attech(Context mContext){
-        listModel=new ListModleIm();
-        BaseRecyclerAdapter adapter=listModel.loadData(mContext);
+    public BaseRecyclerAdapter attech(Context mContext) {
+        listModel = new ListModleIm();
+        BaseRecyclerAdapter adapter = listModel.loadData(mContext);
         adapter.setOnRecyclerItemClick(new OnRecyclerItemClick() {
             @Override
             public void onClick(View veiw, int position) {
-                switch (position){
+                switch (position) {
                     case 0:
                         ((ListViewIn) getView()).jumpToActivity(ToolBarActivity.class);
                         break;
@@ -39,6 +42,11 @@ public class ListItemClickPresent<T> extends BasePresenter<T>{
                         break;
                     case 3:
                         ((ListViewIn) getView()).jumpToActivity(RecyclerActivity.class);
+                        break;
+                    case 4:
+                        ((ListViewIn) getView()).alterDialog();
+
+
                         break;
                 }
             }
