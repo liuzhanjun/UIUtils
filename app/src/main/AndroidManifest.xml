@@ -21,6 +21,8 @@
         </activity>
         <activity android:name=".uiActivity.RecyclerActivity">
         </activity>
+        <activity android:name=".uiActivity.AppBarLayoutActivity">
+        </activity>
     </application>
 
 </manifest>

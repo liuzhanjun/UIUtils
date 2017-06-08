@@ -8,6 +8,7 @@ import liu.zhan.jun.highuilist.modelim.ListModleIm;
 import liu.zhan.jun.highuilist.modelin.ListModelIn;
 import liu.zhan.jun.highuilist.recyclerview.BaseRecyclerAdapter;
 import liu.zhan.jun.highuilist.recyclerview.OnRecyclerItemClick;
+import liu.zhan.jun.highuilist.uiActivity.AppBarLayoutActivity;
 import liu.zhan.jun.highuilist.uiActivity.LinearLayoutCompatActivity;
 import liu.zhan.jun.highuilist.uiActivity.RecyclerActivity;
 import liu.zhan.jun.highuilist.uiActivity.ToolBarActivity;
@@ -45,6 +46,9 @@ public class ListItemClickPresent<T> extends BasePresenter<T> {
                         break;
                     case 4:
                         ((ListViewIn) getView()).alterDialog();
+                        break;
+                    case 5:
+                        ((ListViewIn) getView()).jumpToActivity(AppBarLayoutActivity.class);
 
 
                         break;

@@ -24,6 +24,7 @@ public class ListModleIm implements ListModelIn {
         data.add("LinearlayoutCompat线性布局给子元素加间隔线");
         data.add("recyclerView");
         data.add("BottomMenudialog");
+        data.add("CoordinatorLayout,AppBarLayout,CollapsingToolbarLayout，NestedScrollView");
         data.add("NavigationView");
         data.add("SnackBar");
         data.add("TextInputLayotu");
