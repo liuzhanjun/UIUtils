@@ -17,7 +17,6 @@ import android.view.ViewGroup;
 public class BottomSheetDialog extends android.support.design.widget.BottomSheetDialog{
     public BottomSheetDialog(@NonNull Context context) {
         super(context);
-        BottomSheetDialogFragment dd;
     }
 
     public BottomSheetDialog(@NonNull Context context, @StyleRes int theme) {
@@ -53,4 +52,5 @@ public class BottomSheetDialog extends android.support.design.widget.BottomSheet
         }
         return statusBarHeight;
     }
+
 }
