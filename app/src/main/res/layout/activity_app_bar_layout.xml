@@ -68,6 +68,5 @@
         android:src="@mipmap/ic_launcher"
         app:layout_anchor="@id/main.appbar"
         app:layout_anchorGravity="bottom|right|end"
-        android:onClick="alertDialog"
         />
 </android.support.design.widget.CoordinatorLayout>
