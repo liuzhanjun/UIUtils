@@ -8,6 +8,8 @@
 4.LinearlayoutCompat线性布局给子元素加间隔线<br>
 5.recyclerView封装点击事件，长按事件，
 BaseAdapter,BaseViewHoder,
-纵向线性分割线，水平线性分割线，纵向网格分割线，水平网格分割线
-<br>6
+纵向线性分割线，水平线性分割线，纵向网格分割线，水平网格分割线,添加头部和底部
+<br>
+6.
+
 
