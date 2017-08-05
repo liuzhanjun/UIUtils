@@ -73,21 +73,31 @@ public class BaseGridDecoration extends RecyclerView.ItemDecoration {
      */
     private void setHorizontalOffsets(Rect outRect,RecyclerView parent, int itemPosition, int interval) {
 
-        if (itemPosition == 0) {
-            //第一个的上下左右都有
-            outRect.set(interval, interval, interval, interval);
-        } else {
-            if (itemPosition % spanCount == 0) {
-                //这是第一行
-                //只有上右边下边
-                outRect.set(0, interval, interval, interval);
+        if (parent.getChildCount()<=spanCount){
+            if (itemPosition<parent.getChildCount()-1){
+                outRect.set(interval, 0, interval, interval);
+            }else{
+                outRect.set(interval, interval, interval, 0);
+            }
+
+        }else {
+
+            if (itemPosition == 0) {
+                //第一个的上下左右都有
+                outRect.set(interval, interval, interval, interval);
             } else {
-                if (itemPosition < spanCount) {
-                    //第一列 左右下
-                    outRect.set(interval, 0, interval, interval);
+                if (itemPosition % spanCount == 0) {
+                    //这是第一行
+                    //只有上右边下边
+                    outRect.set(0, interval, interval, interval);
                 } else {
-                    //只有右和下
-                    outRect.set(0, 0, interval, interval);
+                    if (itemPosition < spanCount) {
+                        //第一列 左右下
+                        outRect.set(interval, 0, interval, interval);
+                    } else {
+                        //只有右和下
+                        outRect.set(0, 0, interval, interval);
+                    }
                 }
             }
         }
@@ -145,19 +155,43 @@ public class BaseGridDecoration extends RecyclerView.ItemDecoration {
     private void DrawHorizontal(Canvas c, RecyclerView parent, RecyclerView.State state) {
         //画左边
         drawHLeft(parent, c);
-        //画整个的上边
-        drawHTop(parent, c);
-        //画元素的右边
-        drawHRight(parent, c);
+
+        if (parent.getChildCount()==1||parent.getChildCount()<=spanCount){
+            drawHTop2(parent, c);
+            drawHright2(parent, c);
+
+        }else {
+            //画元素的右边
+            drawHRight(parent, c);
+            //画整个的上边
+            drawHTop(parent, c);
+        }
         //画下边
         drawHBottom(parent, c);
+    }
+
+    private void drawHTop2(RecyclerView parent, Canvas c) {
+        for (int i=0;i<parent.getChildCount();i++) {
+            View view = parent.getChildAt(i);
+            mDivider.setBounds(view.getLeft()-interval, view.getTop() - interval, view.getRight(), view.getTop());
+            mDivider.draw(c);
+        }
+
+    }
+
+    private void drawHright2(RecyclerView parent, Canvas c) {
+        for (int i=0;i<parent.getChildCount();i++) {
+            View view = parent.getChildAt(i);
+            mDivider.setBounds(view.getRight(), view.getTop()-interval, view.getRight() + interval, view.getBottom() + interval);
+            mDivider.draw(c);
+        }
     }
 
     private void drawHBottom(RecyclerView parent, Canvas c) {
 
         for (int i = 0; i < parent.getChildCount(); i++) {
             View view=parent.getChildAt(i);
-            mDivider.setBounds(view.getLeft()-interval,view.getBottom(),view.getRight(),view.getBottom()+2*interval);
+            mDivider.setBounds(view.getLeft()-interval,view.getBottom(),view.getRight(),view.getBottom()+interval);
             mDivider.draw(c);
         }
 
@@ -165,10 +199,14 @@ public class BaseGridDecoration extends RecyclerView.ItemDecoration {
 
     private void drawHRight(RecyclerView parent, Canvas c) {
         //最后spanCount个的右边
-        for (int i = parent.getChildCount()-1; i >= parent.getChildCount()-spanCount; i--) {
-            View view=parent.getChildAt(i);
-            mDivider.setBounds(view.getRight(),view.getTop(),view.getRight()+interval,view.getBottom()+2*interval);
-            mDivider.draw(c);
+        if (parent.getChildCount()<=spanCount){
+            drawRight(parent, c);
+        }else {
+            for (int i = parent.getChildCount() - 1; i >= parent.getChildCount() - spanCount; i--) {
+                View view = parent.getChildAt(i);
+                mDivider.setBounds(view.getRight(), view.getTop(), view.getRight() + interval, view.getBottom() + interval);
+                mDivider.draw(c);
+            }
         }
 
     }
@@ -187,12 +225,12 @@ public class BaseGridDecoration extends RecyclerView.ItemDecoration {
     }
 
     private void drawHLeft(RecyclerView parent, Canvas c) {
-        for (int i = 0; i < parent.getChildCount(); i++) {
 
-            View v=parent.getChildAt(i);
-            mDivider.setBounds(v.getLeft()-interval,v.getTop(),v.getLeft(),v.getBottom());
-            mDivider.draw(c);
-        }
+            for (int i = 0; i < parent.getChildCount(); i++) {
+                View v = parent.getChildAt(i);
+                mDivider.setBounds(v.getLeft() - interval, v.getTop(), v.getLeft(), v.getBottom());
+                mDivider.draw(c);
+            }
     }
 
 
@@ -229,45 +267,59 @@ public class BaseGridDecoration extends RecyclerView.ItemDecoration {
      */
     private void drawBottom(RecyclerView parent, Canvas c) {
         int endRight = 0;//表示和最后一个的右边对齐的上一层的那个
-        for (int i = 1; i < parent.getChildCount(); i++) {
-            View view = parent.getChildAt(i - 1);
-            int left = view.getLeft();// + params.leftMargin;
-            //下一个的左边
-            int right = parent.getChildAt(i).getLeft();
-            int top = view.getBottom();// - params.bottomMargin + Math.round(ViewCompat.getTranslationY(view));
-            int bottom = top + interval;// + params.topMargin + Math.round(ViewCompat.getTranslationY(view));
+
+        if (parent.getChildCount()==1||parent.getChildCount()<=spanCount){
+            for (int i = 0; i < parent.getChildCount(); i++) {
+                View view=parent.getChildAt(i);
+                int left=view.getLeft();
+                int right=view.getRight();
+                int top=view.getBottom();
+                int bottom=top+interval;
+                mDivider.setBounds(left, top, right, bottom);
+                mDivider.draw(c);
+            }
+
+        }else {
+            for (int i = 1; i < parent.getChildCount(); i++) {
+                View view = parent.getChildAt(i - 1);
+                int left = view.getLeft();// + params.leftMargin;
+                //下一个的左边
+                int right = parent.getChildAt(i).getLeft();
+                int top = view.getBottom();// - params.bottomMargin + Math.round(ViewCompat.getTranslationY(view));
+                int bottom = top + interval;// + params.topMargin + Math.round(ViewCompat.getTranslationY(view));
 
 
-            if (i % spanCount == 0) {
-                //如果最后一个刚好是第一列的最后一个
-                if (i == parent.getChildCount() - 1) {
-                    int end = i - (spanCount - 1);
-                    View v = parent.getChildAt(i);
-                    mDivider2.setBounds(v.getLeft(), v.getBottom(), parent.getChildAt(end).getLeft() - interval, v.getBottom() + interval);
+                if (i % spanCount == 0) {
+                    //如果最后一个刚好是第一列的最后一个
+                    if (i == parent.getChildCount() - 1) {
+                        int end = i - (spanCount - 1);
+                        View v = parent.getChildAt(i);
+                        mDivider2.setBounds(v.getLeft(), v.getBottom(), parent.getChildAt(end).getLeft() - interval, v.getBottom() + interval);
+                        mDivider2.draw(c);
+                    }
+
+                    endRight = i;
+                    mDivider.setBounds(view.getLeft() - interval, view.getBottom(), parent.getRight() - interval, view.getBottom() + interval);
+                } else if (i < parent.getChildCount() - 1) {
+                    mDivider.setBounds(left, top, right, bottom);
+                } else {
+                    //最后一个
+                    mDivider.setBounds(left, top, right, bottom);
+                    int op = (spanCount - 1 - (i % spanCount));
+                    View view1 = parent.getChildAt(i);
+                    if (op == 0) {
+                        ////这最后的那个元素就是最右边的那列的最后一个
+                        mDivider2.setBounds(view1.getLeft(), view1.getBottom(), parent.getRight() - interval, parent.getBottom());
+                    } else {
+                        endRight = endRight - (spanCount - 1 - (i % spanCount));
+
+                        mDivider2.setBounds(view1.getLeft(), view1.getBottom(), parent.getChildAt(endRight).getLeft(), view1.getBottom() + interval);
+
+                    }
                     mDivider2.draw(c);
                 }
-
-                endRight = i;
-                mDivider.setBounds(view.getLeft() - interval, view.getBottom(), parent.getRight() - interval, view.getBottom() + interval);
-            } else if (i < parent.getChildCount() - 1) {
-                mDivider.setBounds(left, top, right, bottom);
-            } else {
-                //最后一个
-                mDivider.setBounds(left, top, right, bottom);
-                int op = (spanCount - 1 - (i % spanCount));
-                View view1 = parent.getChildAt(i);
-                if (op == 0) {
-                    ////这最后的那个元素就是最右边的那列的最后一个
-                    mDivider2.setBounds(view1.getLeft(), view1.getBottom(), parent.getRight() - interval, parent.getBottom());
-                } else {
-                    endRight = endRight - (spanCount - 1 - (i % spanCount));
-
-                    mDivider2.setBounds(view1.getLeft(), view1.getBottom(), parent.getChildAt(endRight).getLeft(), view1.getBottom() + interval);
-
-                }
-                mDivider2.draw(c);
+                mDivider.draw(c);
             }
-            mDivider.draw(c);
         }
     }
 
@@ -275,42 +327,55 @@ public class BaseGridDecoration extends RecyclerView.ItemDecoration {
 
         //从第2个元素开始根据后面一个元素的left-interval,即当前元素的右边
         int rightEndIndex = 0;
-        for (int i = 1; i < parent.getChildCount(); i++) {
-            View view = parent.getChildAt(i);
-            int left = view.getLeft() - interval;
-            int right = view.getLeft();//+ params.leftMargin;
-            int top = view.getTop();// - params.topMargin + Math.round(ViewCompat.getTranslationY(view));
-            int bottom = view.getBottom();//+ params.bottomMargin + Math.round(ViewCompat.getTranslationY(view));
+        //只有一个元素的时候
+        if (parent.getChildCount()==1||parent.getChildCount()<=spanCount){
+            for (int i = 0; i < parent.getChildCount(); i++) {
+                View view = parent.getChildAt(i);
+                int left = view.getRight();
+                int right = left + interval;
+                int top = view.getTop() - interval;
+                int bottom = view.getBottom() + interval;
+                mDivider.setBounds(left, top, right, bottom);
+                mDivider.draw(c);
+            }
+        }else {
+            for (int i = 1; i < parent.getChildCount(); i++) {
+                View view = parent.getChildAt(i);
+                int left = view.getLeft() - interval;
+                int right = view.getLeft();//+ params.leftMargin;
+                int top = view.getTop();// - params.topMargin + Math.round(ViewCompat.getTranslationY(view));
+                int bottom = view.getBottom();//+ params.bottomMargin + Math.round(ViewCompat.getTranslationY(view));
 
-            if (i % spanCount == 0) {
-                //如果最后一个刚好是第一列的最后一个
-                if (i == parent.getChildCount() - 1) {
+                if (i % spanCount == 0) {
+                    //如果最后一个刚好是第一列的最后一个
+                    if (i == parent.getChildCount() - 1) {
 
-                    int end = i - (spanCount - 1);
-                    View v = parent.getChildAt(end);
-                    mDivider2.setBounds(v.getLeft() - interval, v.getBottom() + interval, v.getLeft(), view.getBottom() + interval);
+                        int end = i - (spanCount - 1);
+                        View v = parent.getChildAt(end);
+                        mDivider2.setBounds(v.getLeft() - interval, v.getBottom() + interval, v.getLeft(), view.getBottom() + interval);
+                        mDivider2.draw(c);
+                    }
+                    rightEndIndex = i;
+                    mDivider.setBounds(parent.getRight() - interval, parent.getChildAt(i - 1).getTop(), parent.getRight(), parent.getChildAt(i - 1).getBottom() + interval);
+
+                } else if (i < parent.getChildCount() - 1) {
+                    mDivider.setBounds(left, top, right, bottom);
+                } else {
+                    int op = (spanCount - 1 - (i % spanCount));
+                    mDivider.setBounds(left, top, right, bottom);
+                    if (op == 0) {
+                        //这最后的那个元素就是最右边的那列的最后一个
+                        mDivider2.setBounds(parent.getRight() - interval, top, parent.getRight(), bottom + interval);
+                    } else {
+                        rightEndIndex = rightEndIndex - op;
+                        mDivider2.setBounds(parent.getChildAt(rightEndIndex).getLeft() - interval, top, parent.getChildAt(rightEndIndex).getLeft(), bottom);
+
+                    }
                     mDivider2.draw(c);
                 }
-                rightEndIndex = i;
-                mDivider.setBounds(parent.getRight() - interval, parent.getChildAt(i - 1).getTop(), parent.getRight(), parent.getChildAt(i - 1).getBottom() + interval);
 
-            } else if (i < parent.getChildCount() - 1) {
-                mDivider.setBounds(left, top, right, bottom);
-            } else {
-                int op = (spanCount - 1 - (i % spanCount));
-                mDivider.setBounds(left, top, right, bottom);
-                if (op == 0) {
-                    //这最后的那个元素就是最右边的那列的最后一个
-                    mDivider2.setBounds(parent.getRight() - interval, top, parent.getRight(), bottom + interval);
-                } else {
-                    rightEndIndex = rightEndIndex - op;
-                    mDivider2.setBounds(parent.getChildAt(rightEndIndex).getLeft() - interval, top, parent.getChildAt(rightEndIndex).getLeft(), bottom);
-
-                }
-                mDivider2.draw(c);
+                mDivider.draw(c);
             }
-
-            mDivider.draw(c);
         }
 
     }
@@ -323,7 +388,14 @@ public class BaseGridDecoration extends RecyclerView.ItemDecoration {
      * @param c
      */
     private void drawStartTop(RecyclerView parent, Canvas c) {
-        int w=parent.getChildAt(1).getLeft()+interval-parent.getChildAt(0).getLeft();
+        int w;
+        if (parent.getChildAt(1)==null){
+            w=parent.getChildAt(0).getRight()-parent.getChildAt(0).getLeft();
+        }else{
+            w=parent.getChildAt(1).getLeft()+interval-parent.getChildAt(0).getLeft();
+        }
+
+
         for (int i = 0; i < parent.getChildCount(); i++) {
             //第一行画上面
             if (i < spanCount) {
