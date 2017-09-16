@@ -42,7 +42,7 @@
 
     <LinearLayout
         android:id="@+id/content"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -66,6 +66,18 @@
             android:layout_height="wrap_content"
             android:text="设置圆角20"
             android:onClick="setting20"/>
+
+        <liu.zhan.jun.highuilist.widget.AmountView
+            android:id="@+id/amount_view"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="15dp"
+            app:btnTextSize="14sp"
+            app:btnWidth="36dp"
+            app:tvWidth="50dp" />
 
 
     </LinearLayout>
