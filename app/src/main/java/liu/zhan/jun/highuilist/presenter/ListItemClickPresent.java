@@ -52,6 +52,11 @@ public class ListItemClickPresent<T> extends BasePresenter<T> {
 
 
                         break;
+                    case 6:
+                        ((ListViewIn) getView()).alterDialog1();
+
+
+                        break;
                 }
             }
 

@@ -4,4 +4,11 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="green">#00FF00</color>
     <color name="colorAccent">#FF4081</color>
+    <!-- 白色-->
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="font_common_1">#424242</color>
+    <color name="font_common_2">#a1a1a1</color>
+    <color name="commom_background">#f3f3f3</color>
+    <color name="font_blue">#42369a</color>
 </resources>

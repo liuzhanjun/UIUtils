@@ -7,4 +7,5 @@ package liu.zhan.jun.highuilist.viewIn;
 public interface ListViewIn {
     public void jumpToActivity(Class<?> zclass);
     public void alterDialog();
+    public void alterDialog1();
 }

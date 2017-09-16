@@ -25,6 +25,7 @@ public class ListModleIm implements ListModelIn {
         data.add("recyclerView");
         data.add("BottomMenudialog");
         data.add("CoordinatorLayout,AppBarLayout,CollapsingToolbarLayout，NestedScrollView");
+        data.add("dialog1");
         data.add("NavigationView");
         data.add("SnackBar");
         data.add("TextInputLayotu");
@@ -34,6 +35,8 @@ public class ListModleIm implements ListModelIn {
         data.add("CardView");
         data.add("FloatingActionBar");
         data.add("CoordinatorLayout_Behavior_fab");
+
+
         UiListAdapter adapter=new
                 UiListAdapter(
                 data,new WeakReference<Context>(mContext));
