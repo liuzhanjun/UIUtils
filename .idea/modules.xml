@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/HighUIList.iml" filepath="$PROJECT_DIR$/HighUIList.iml" />
-      <module fileurl="file://$PROJECT_DIR$/UIUtils.iml" filepath="$PROJECT_DIR$/UIUtils.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/UIUtils.iml" filepath="$PROJECT_DIR$/.idea/UIUtils.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

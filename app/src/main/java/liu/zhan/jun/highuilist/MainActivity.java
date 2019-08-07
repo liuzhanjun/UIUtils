@@ -67,6 +67,7 @@ public class MainActivity extends BaseActivity<ListViewIn, ListItemClickPresent<
     @Override
     public void jumpToActivity(Class<?> zclass) {
         Intent intent = new Intent(this, zclass);
+        Intent intent2 = new Intent(this, BaseActivity.class);
         startActivity(intent);
     }
 
